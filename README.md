@@ -1,3 +1,5 @@
+***WARNING:* This build forces the latest packages thus could be unstable but should also be up to date.**
+
 thingproxy
 ==========
 
