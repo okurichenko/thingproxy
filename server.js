@@ -9,15 +9,15 @@ var throttle = require("tokenthrottle")({rate: config.max_requests_per_second});
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
 
-var publicAddressFinder = require("public-address");
-var publicIP;
+// var publicAddressFinder = require("public-address");
+// var publicIP;
 
-// Get our public IP address
-publicAddressFinder(function (err, data) {
-    if (!err && data) {
-        publicIP = data.address;
-    }
-});
+// // Get our public IP address
+// publicAddressFinder(function (err, data) {
+//     if (!err && data) {
+//         publicIP = data.address;
+//     }
+// });
 
 function addCORSHeaders(req, res) {
     if (req.method.toUpperCase() === "OPTIONS") {
@@ -91,15 +91,15 @@ function processRequest(req, res) {
             return writeResponse(res, 400, "only http and https are supported");
         }
 
-        if (publicIP) {
-            // Add an X-Forwarded-For header
-            if (req.headers["x-forwarded-for"]) {
-                req.headers["x-forwarded-for"] += ", " + publicIP;
-            }
-            else {
-                req.headers["x-forwarded-for"] = req.clientIP + ", " + publicIP;
-            }
-        }
+        // if (publicIP) {
+        //     // Add an X-Forwarded-For header
+        //     if (req.headers["x-forwarded-for"]) {
+        //         req.headers["x-forwarded-for"] += ", " + publicIP;
+        //     }
+        //     else {
+        //         req.headers["x-forwarded-for"] = req.clientIP + ", " + publicIP;
+        //     }
+        // }
 
         // Make sure the host header is to the URL we're requesting, not thingproxy
         if (req.headers["host"]) {
